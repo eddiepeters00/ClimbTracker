@@ -9,6 +9,10 @@ Welcome to ClimbTracker, your ultimate companion for tracking your climbing prog
 
 🥇 Stay tuned for updates and new features as I continue to enhance ClimbTracker to support your climbing journey!
 
+## Requirement specifikation
+
+I have created a detailed requirement specification following the MoSCoW method for this project. Check it out in Swedish here:  [Kravdokument](https://1drv.ms/w/c/35e776f45a281d43/EcmUpH-stJNPoIkEP7VtxxkB47b0srZPkUHo2BTTtHvmuw?e=EkwBxH)
+
 ## Design
 
 I have made the design for the app in [Figma](https://www.figma.com/file/VcF0Qi5NV1HEN2nMIJ5GMY/ClimbTracker?type=design&node-id=0%3A1&mode=design&t=T8mdP3tb05SEOMdP-1) following design principles I learned during my UI/UX course.
