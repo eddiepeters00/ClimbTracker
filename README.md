@@ -1,4 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ClimbTracker
+
+Welcome to ClimbTracker, your ultimate companion for tracking your climbing progress! Whether you're a seasoned climber or just starting out, ClimbTracker is designed to help you reach new heights and conquer your climbing goals.
+
+## Features
+* __Track Your Progress:__ Log your climbing attempts and successful ascents to monitor your improvement over time.
+* __Find Gyms:__ Discover nearby climbing gyms and their available routes, making it easier than ever to plan your next climbing session.
+* __User Registration:__ Create your personal account to save your climbing history and preferences, ensuring a tailored experience every time you use ClimbTracker.
+
+🥇 Stay tuned for updates and new features as I continue to enhance ClimbTracker to support your climbing journey!
+
+## Design
+
+I have made the design for the app in [Figma](https://www.figma.com/file/VcF0Qi5NV1HEN2nMIJ5GMY/ClimbTracker?type=design&node-id=0%3A1&mode=design&t=T8mdP3tb05SEOMdP-1) following design principles I learned during my UI/UX course.
 
 ## Getting Started
 
@@ -15,23 +28,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# ClimbTracker
