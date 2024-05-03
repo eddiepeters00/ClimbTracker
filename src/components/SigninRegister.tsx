@@ -1,7 +1,10 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import Image from "next/image";
-import woman_climbing from "../../../public/full-shot-woman-climbing-wall.jpg";
-export default function Auth() {
+import Link from "next/link";
+import woman_climbing from "../../public/full-shot-woman-climbing-wall.jpg";
+
+export default function SigninRegister() {
   return (
     <main className="w-full h-full grid justify-center content-between">
       <Image
@@ -15,10 +18,18 @@ export default function Auth() {
       </h1>
 
       <div className="grid gap-6 m-12">
-        <Button variant="default">Register</Button>
-        <Button variant="outline" className="bg-secondary text-white">
+        <Link
+          href={"/register"}
+          className="bg-primary text-center p-2 rounded-sm font-medium"
+        >
+          Register
+        </Link>
+        <Link
+          href={"/api/auth/signin"}
+          className="bg-secondary text-center p-2 border rounded-sm font-medium"
+        >
           Sign in
-        </Button>
+        </Link>
       </div>
     </main>
   );

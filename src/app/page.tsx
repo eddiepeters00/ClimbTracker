@@ -1,18 +1,10 @@
-import { getUsers } from "@/lib/mongoDb/users";
+import { options } from "./api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
+import SigninRegister from "@/components/SigninRegister";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  const users = await getUsers();
-  console.log(users);
+  const session = await getServerSession(options);
 
-  return (
-    <div>
-      <ul>
-        {users.users?.map((user) => (
-          <li key={user._id}>
-            {user.name} {user.email}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return <>{session ? redirect("/gyms") : <SigninRegister />}</>;
 }
