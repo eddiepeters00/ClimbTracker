@@ -1,10 +1,11 @@
 import Image from "next/image";
 import man_bouldering from "../../../../public/shirtless-sporty-male-climbing-indoor-climbing-wall.jpg";
-import { Card, CardTitle } from "@/components/ui/card";
 import { getGyms } from "@/lib/mongoDb/gyms";
+import GymCard from "./GymCard";
 
-export default async function Gyms() {
+export default async function Page() {
   const gyms = await getGyms();
+  console.log(gyms);
   return (
     <section>
       <Image
@@ -16,10 +17,7 @@ export default async function Gyms() {
       <ul className="grid gap-6 mx-4 pt-8">
         {gyms.gyms?.map((gym) => (
           <li key={gym._id}>
-            <Card className=" flex justify-between items-center text-black h-10 p-2">
-              <CardTitle className="text-lg font-medium">{gym.name}</CardTitle>
-              <span className="">12/32</span>
-            </Card>
+            <GymCard gym={gym} />
           </li>
         ))}
       </ul>

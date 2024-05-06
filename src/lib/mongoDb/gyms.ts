@@ -1,15 +1,16 @@
 import { Collection } from "mongodb";
 import clientPromise from ".";
 
-let gyms: Collection<Gyms>;
-type Gyms = {
-  id: string;
+let gyms: Collection<Gym>;
+
+export type Gym = {
+  _id: string;
   name: string;
   location: string;
-  routes: Route[];
+  routes: GymRoute[];
 };
 
-type Route = {
+export type GymRoute = {
   id: string;
   name: string;
   grade: string;
@@ -21,7 +22,7 @@ async function init() {
   try {
     const client = await clientPromise;
     const db = await client.db();
-    gyms = await db.collection<Gyms>("gyms");
+    gyms = await db.collection<Gym>("gyms");
   } catch (error) {
     throw new Error("Failed to stablish connection to database");
   }
