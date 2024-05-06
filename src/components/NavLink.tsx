@@ -1,6 +1,6 @@
+"use client";
+
 import Link from "next/link";
-import next_svg from "../../public/next.svg";
-import Image from "next/image";
 import { Home, Dumbbell, Users, BarChart } from "lucide-react";
 
 type LinkType = "home" | "gyms" | "community" | "progress";
