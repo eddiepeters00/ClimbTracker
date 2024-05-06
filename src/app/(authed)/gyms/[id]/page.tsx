@@ -1,9 +1,20 @@
 import Image from "next/image";
 import man_bouldering from "../../../../../public/shirtless-sporty-male-climbing-indoor-climbing-wall.jpg";
-import { ArrowLeft } from "lucide-react";
 import GymRouteCarusell from "./GymRouteCarousel";
+import { getGym } from "@/lib/mongoDb/gyms";
 
-export default async function Page() {
+export default async function Page({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
+  console.log("Params: ", id);
+  //Fetch routes from gym with id
+  const gym = await getGym({ gym_id: id });
+  console.log("GYM from ID: ", gym.gym);
+
+  const allGymRoutes = gym.gym && gym.gym.routes;
+  console.log("All gymroutes: ", allGymRoutes);
   return (
     <section>
       <Image
@@ -12,15 +23,24 @@ export default async function Page() {
         src={man_bouldering}
       />
 
-      <div className="flex justify-center">
-        <ArrowLeft />
-        <h3>Malmö klättergym</h3>
-      </div>
+      <div className="pt-10 grid gap-10">
+        <h2 className="text-center font-semibold text-primary-foreground">
+          Malmö klättercenter
+        </h2>
+        <div>
+          <h3 className="ml-6 mb-2 text-sm">Popular routes</h3>
+          <GymRouteCarusell routes={allGymRoutes} />
+        </div>
 
-      <div className="grid pt-10 gap-24">
-        <GymRouteCarusell />
-        <GymRouteCarusell />
-        <GymRouteCarusell />
+        <div>
+          <h3 className="ml-6 mb-2 text-sm">Grade</h3>
+          <GymRouteCarusell routes={allGymRoutes} />
+        </div>
+
+        <div>
+          <h3 className="ml-6 mb-2 text-sm">All routes</h3>
+          <GymRouteCarusell routes={allGymRoutes} />
+        </div>
       </div>
     </section>
   );

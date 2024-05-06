@@ -22,10 +22,7 @@ async function init() {
   await init();
 })();
 
-/////////////
-/// USERS ///
-/////////////
-
+//Get all users
 export async function getUsers() {
   try {
     if (!users) await init();

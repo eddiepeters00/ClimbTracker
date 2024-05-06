@@ -9,7 +9,6 @@ type GymCardProps = {
 };
 
 export default function GymCard({ gym }: GymCardProps) {
-  console.log("Gym: ", gym);
   return (
     <Link href={`/gyms/${gym._id}`}>
       <Card className=" flex justify-between items-center text-black h-10 p-2">

@@ -32,10 +32,7 @@ async function init() {
   await init();
 })();
 
-/////////////
-/// Gyms ////
-/////////////
-
+//Get all gyms
 export async function getGyms() {
   try {
     if (!gyms) await init();
@@ -47,5 +44,16 @@ export async function getGyms() {
     return { gyms: result };
   } catch (error) {
     return { error: "Failed to fetch gyms" };
+  }
+}
+
+//Get gym by ID
+export async function getGym({ gym_id }: { gym_id: string }) {
+  try {
+    if (!gyms) await init();
+    const result = await gyms.findOne({ _id: { $in: [gym_id] } });
+    return { gym: result };
+  } catch (error) {
+    return { error: "Failed to fetch gym" };
   }
 }
