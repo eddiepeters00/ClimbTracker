@@ -1,6 +1,6 @@
 import { options } from "./api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
-import SigninRegister from "./SigninRegister";
+import SigninRegister from "./SignIn";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
