@@ -9,7 +9,7 @@ export default function MainLayout({
   return (
     <>
       <Header />
-      <main className="flex-grow min-w-max min-h-full">{children}</main>
+      <main className="flex-grow">{children}</main>
       <Navbar />
     </>
   );

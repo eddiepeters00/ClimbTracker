@@ -11,7 +11,7 @@ export type Gym = {
 };
 
 export type GymRoute = {
-  id: string;
+  _id: string;
   name: string;
   grade: string;
   color?: string;

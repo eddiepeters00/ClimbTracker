@@ -24,20 +24,23 @@ export default function GymRouteCarusell({ routes, gym_id }: GymRouteProps) {
       className="w-full max-w-sm"
     >
       <CarouselContent className="mx-2">
-        {routes?.map((route) => (
-          <Link key={route.id} href={`/gyms/${gym_id}/${route.id}`}>
-            <CarouselItem className={`basis-1/4 mx-2`}>
-              <Card className={`bg-${route.color}-400 relative`}>
-                <span className="absolute top-0 left-0 p-1 text-xs">
-                  {route.grade}
-                </span>
-                <CardContent className="grid place-content-center aspect-square p-0">
-                  <span className="text-xs font-semibold">{route.name}</span>
-                </CardContent>
-              </Card>
-            </CarouselItem>
-          </Link>
-        ))}
+        {routes?.map((route) => {
+          console.log("Route ID: ", route._id);
+          return (
+            <Link key={route._id} href={`/gyms/${gym_id}/${route._id}`}>
+              <CarouselItem className={`basis-1/4 mx-2`}>
+                <Card className={`bg-${route.color}-400 relative`}>
+                  <span className="absolute top-0 left-0 p-1 text-xs">
+                    {route.grade}
+                  </span>
+                  <CardContent className="grid place-content-center aspect-square p-0">
+                    <span className="text-xs font-semibold">{route.name}</span>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            </Link>
+          );
+        })}
       </CarouselContent>
     </Carousel>
   );

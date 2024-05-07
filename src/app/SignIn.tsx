@@ -8,7 +8,7 @@ export default function SigninRegister() {
   return (
     <main className="w-full h-full grid justify-center content-between">
       <Image
-        className="object-cover w-full h-full absolute -z-10 bg-blend-darken brightness-75"
+        className="h-full object-cover w-full absolute -z-10 bg-blend-darken brightness-75"
         alt="Woman bouldering hanging on a wall with one arm loose"
         src={woman_climbing}
       />

@@ -9,11 +9,10 @@ export default async function Page() {
   return (
     <section>
       <Image
-        className="object-cover absolute bg-blend-darken brightness-75 -z-10"
+        className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10"
         alt="Woman bouldering hanging on a wall with one arm loose"
         src={man_bouldering}
       />
-
       <ul className="grid gap-6 mx-4 pt-8">
         {gyms.gyms?.map((gym) => (
           <li key={gym._id}>
