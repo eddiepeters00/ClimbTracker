@@ -1,4 +1,4 @@
-import { Collection } from "mongodb";
+import { Collection, ObjectId } from "mongodb";
 import clientPromise from ".";
 
 let gyms: Collection<Gym>;
@@ -51,7 +51,8 @@ export async function getGyms() {
 export async function getGym({ gym_id }: { gym_id: string }) {
   try {
     if (!gyms) await init();
-    const result = await gyms.findOne({ _id: { $in: [gym_id] } });
+    const gymObjectId = new ObjectId(gym_id);
+    const result = await gyms.findOne(gymObjectId);
     return { gym: result };
   } catch (error) {
     return { error: "Failed to fetch gym" };

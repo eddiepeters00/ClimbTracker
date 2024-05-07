@@ -5,17 +5,17 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 import type { GymRoute } from "@/lib/mongoDb/gyms";
+import Link from "next/link";
 
 type GymRouteProps = {
   routes: GymRoute[] | undefined | null;
+  gym_id: string;
 };
 
-export default function GymRouteCarusell({ routes }: GymRouteProps) {
+export default function GymRouteCarusell({ routes, gym_id }: GymRouteProps) {
   return (
     <Carousel
       opts={{
@@ -24,20 +24,21 @@ export default function GymRouteCarusell({ routes }: GymRouteProps) {
       className="w-full max-w-sm"
     >
       <CarouselContent className="mx-2">
-        {routes?.map((route, index) => (
-          <CarouselItem key={route.id} className="basis-1/4 mx-2">
-            <Card>
-              <CardContent className="flex aspect-square items-center justify-center">
-                <span className="text-3xl font-semibold text-black">
-                  {index + 1}
+        {routes?.map((route) => (
+          <Link key={route.id} href={`/gyms/${gym_id}/${route.id}`}>
+            <CarouselItem className={`basis-1/4 mx-2`}>
+              <Card className={`bg-${route.color}-400 relative`}>
+                <span className="absolute top-0 left-0 p-1 text-xs">
+                  {route.grade}
                 </span>
-              </CardContent>
-            </Card>
-          </CarouselItem>
+                <CardContent className="grid place-content-center aspect-square p-0">
+                  <span className="text-xs font-semibold">{route.name}</span>
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          </Link>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
     </Carousel>
   );
 }
