@@ -8,16 +8,21 @@ export default function RouteButtons() {
   };
 
   const handleCompletedClick = () => {
+    checkIsRouteSaved();
     console.log("Clicked completed");
+  };
+
+  const checkIsRouteSaved = () => {
+    return;
   };
 
   return (
     <>
       <Button
         onClick={handleTryClick}
-        className="bg-secondary text-center p-2 border rounded-sm font-medium"
+        className="bg-secondary text-center p-2 border rounded-sm font-medium px-20"
       >
-        I made a solid try...
+        I tried...
       </Button>
       <Button
         onClick={handleCompletedClick}

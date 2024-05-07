@@ -2,7 +2,7 @@ import { Collection, ObjectId } from "mongodb";
 import clientPromise from ".";
 
 let users: Collection<User>;
-type User = {
+export type User = {
   name: string;
   email: string;
   picture?: string;
