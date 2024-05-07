@@ -1,6 +1,6 @@
 import Image from "next/image";
 import man_bouldering from "../../../../../public/shirtless-sporty-male-climbing-indoor-climbing-wall.jpg";
-import GymRouteCarusell from "./GymRouteCarousel";
+import GymRouteCarusell from "@/components/carusells/GymRouteCarousel";
 import { getGym } from "@/lib/mongoDb/gyms";
 
 export default async function Page({
@@ -25,15 +25,6 @@ export default async function Page({
         <h2 className="text-center font-semibold text-primary-foreground">
           {gym.gym?.name}
         </h2>
-        <div>
-          <h3 className="ml-6 mb-2 text-sm">Popular routes</h3>
-          <GymRouteCarusell routes={allGymRoutes} gym_id={gym.gym?._id ?? ""} />
-        </div>
-
-        <div>
-          <h3 className="ml-6 mb-2 text-sm">Grade</h3>
-          <GymRouteCarusell routes={allGymRoutes} gym_id={gym.gym?._id ?? ""} />
-        </div>
 
         <div>
           <h3 className="ml-6 mb-2 text-sm">All routes</h3>

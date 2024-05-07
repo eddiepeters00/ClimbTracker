@@ -58,3 +58,17 @@ export async function getGym({ gym_id }: { gym_id: string }) {
     return { error: "Failed to fetch gym" };
   }
 }
+
+//Get route by ID
+export async function getCurrentRoute({ route_id }: { route_id: string }) {
+  try {
+    if (!gyms) await init();
+    const routeId = new ObjectId(route_id);
+    const result = await gyms.findOne({
+      "routes._id": routeId,
+    });
+    return { route: result?.routes[0] };
+  } catch (error) {
+    return { error: "Failed to fetch route" };
+  }
+}

@@ -1,15 +1,17 @@
 import Image from "next/image";
 import man_bouldering from "../../../../../../public/shirtless-sporty-male-climbing-indoor-climbing-wall.jpg";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
+import { getCurrentRoute } from "@/lib/mongoDb/gyms";
+import RouteButtons from "./RouteButtons";
 
 export default async function Page({
   params: { id, route_id },
 }: {
   params: { id: string; route_id: string };
 }) {
-  console.log("PARAMS: ", id, route_id);
+  const currentRoute = await getCurrentRoute({ route_id });
+  console.log(currentRoute.route);
   return (
     <section className="grid h-[82dvh]">
       <Image
@@ -21,30 +23,31 @@ export default async function Page({
       <div className="pt-10 grid place-content-between justify-center">
         <div>
           <h2 className="text-center font-semibold text-primary-foreground">
-            Napoleon V6
+            {`${currentRoute.route?.name} ${currentRoute.route?.grade}`}
           </h2>
           <Card className="mx-4 mt-10">
-            <CardTitle>Total progress</CardTitle>
-            <CardContent className="flex justify-around items-center">
-              <div className="text-black">1</div>
-              <Separator className="p-1 bg-black" orientation="vertical" />
-              <div className="text-black">2</div>
-              <Separator
-                className="bg-black p-1 h-full"
-                orientation="vertical"
-              />
-              <div className="text-black">3</div>
+            <CardTitle className="text-black m-2 text-base font-light">
+              Progress
+            </CardTitle>
+            <CardContent className="flex justify-around items-center gap-4">
+              <div className="text-black grid place-content-center text-center">
+                <span>0</span>
+                <span className="text-sm font-light">Completed</span>
+              </div>
+              <div className="text-black grid place-content-center text-center">
+                <span>0</span>
+                <span className="text-sm font-light">Achievments</span>
+              </div>
+              <div className="text-black grid place-content-center text-center">
+                <span>0</span>
+                <span className="text-sm font-light">Attempts</span>
+              </div>
             </CardContent>
           </Card>
         </div>
 
         <div className="grid place-content-center gap-4 m-10 mx-20">
-          <Button className="bg-secondary text-center p-2 border rounded-sm font-medium">
-            I made a solid try...
-          </Button>
-          <Button className="bg-primary text-center p-2 border rounded-sm font-medium">
-            I made it!
-          </Button>
+          <RouteButtons />
         </div>
       </div>
     </section>
