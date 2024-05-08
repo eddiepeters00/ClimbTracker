@@ -38,13 +38,11 @@ export default async function handleRoute({
       userId: user.userId,
       routeId: route_id,
     });
-    console.log("Completed route: ", completedAction.route);
   } else {
     completedAction = await addTryToRoute({
       userId: user.userId,
       routeId: route_id,
     });
-    console.log("Tried route: ", completedAction.route);
   }
   return completedAction;
 }

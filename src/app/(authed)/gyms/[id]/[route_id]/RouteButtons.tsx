@@ -6,12 +6,10 @@ import handleRoute from "./handleRoute";
 export default function RouteButtons({ route_id }: { route_id: string }) {
   const handleTry = async () => {
     await handleRoute({ route_id: route_id, action: "try" });
-    console.log("Clicked try");
   };
 
   const handleCompleted = async () => {
     await handleRoute({ route_id: route_id, action: "completed" });
-    console.log("Clicked completed");
   };
 
   return (

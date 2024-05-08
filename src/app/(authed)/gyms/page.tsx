@@ -5,7 +5,6 @@ import GymCard from "./GymCard";
 
 export default async function Page() {
   const gyms = await getGyms();
-  console.log("All gyms: ", gyms);
   return (
     <section>
       <Image
