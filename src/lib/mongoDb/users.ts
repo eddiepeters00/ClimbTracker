@@ -2,10 +2,19 @@ import { Collection, ObjectId } from "mongodb";
 import clientPromise from ".";
 
 let users: Collection<User>;
+
+export type SavedRoute = {
+  route_id: ObjectId;
+  tries: number;
+  times_completed: number;
+  completed: boolean;
+};
+
 export type User = {
   name: string;
   email: string;
   picture?: string;
+  saved_routes: SavedRoute[];
 };
 
 async function init() {
@@ -38,12 +47,11 @@ export async function getUsers() {
 }
 
 //Get user by ID
-export async function getCurrentRoute({ userId }: { userId: string }) {
+export async function getCurrentUserByEmail({ email }: { email: string }) {
   try {
     if (!users) await init();
-    const userObjectId = new ObjectId(userId);
-    const result = await users.findOne(userObjectId);
-    return { route: result };
+    const result = await users.findOne({ email: email });
+    return { userId: result?._id.toString() };
   } catch (error) {
     return { error: "Failed to fetch current user" };
   }
@@ -65,10 +73,127 @@ export async function addNewUser(props: User) {
       name: props.name,
       email: props.email,
       picture: props.picture,
+      saved_routes: [],
     };
     await users.insertOne(doc);
     console.log("User inserted into DB");
   } catch (error) {
     return { error: "Failed to add a new user" };
+  }
+}
+
+//Find route in user by route id
+export async function findRouteInUser({
+  userId,
+  routeId,
+}: {
+  userId: string;
+  routeId: string;
+}) {
+  try {
+    if (!users) await init();
+
+    const result = await users.findOne({
+      _id: new ObjectId(userId),
+      "saved_routes.route_id": new ObjectId(routeId),
+    });
+
+    console.log("[FIND ROUTE IN USER]: ", result);
+    return { route: result };
+  } catch (error) {
+    return { error: "Failed to update route in user" };
+  }
+}
+
+//Save route in saved_routes in user
+export async function saveRoute({
+  userId,
+  routeId,
+}: {
+  userId: string;
+  routeId: string;
+}) {
+  try {
+    if (!users) await init();
+
+    const result = await users.findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      {
+        $push: {
+          saved_routes: {
+            route_id: new ObjectId(routeId),
+            completed: false,
+            times_completed: 0,
+            tries: 0,
+          },
+        },
+      }
+    );
+    console.log(
+      "Route inserted into user saved_routes: ",
+      result?.saved_routes
+    );
+  } catch (error) {
+    return { error: "Failed to save a new route to user" };
+  }
+}
+
+//Increment tries on a specific saved route
+export async function addTryToRoute({
+  userId,
+  routeId,
+}: {
+  userId: string;
+  routeId: string;
+}) {
+  try {
+    if (!users) await init();
+
+    const result = await users.findOneAndUpdate(
+      {
+        _id: new ObjectId(userId),
+        "saved_routes.route_id": new ObjectId(routeId),
+      },
+      {
+        $inc: {
+          "saved_routes.$.tries": 1,
+        },
+      },
+      { returnDocument: "after" }
+    );
+    return { route: result?.saved_routes[0] };
+  } catch (error) {
+    return { error: "Failed to increment tries on route" };
+  }
+}
+
+//Increment completed_climbs on a specific saved route
+export async function addCompletedRoute({
+  userId,
+  routeId,
+}: {
+  userId: string;
+  routeId: string;
+}) {
+  try {
+    if (!users) await init();
+
+    const result = await users.findOneAndUpdate(
+      {
+        _id: new ObjectId(userId),
+        "saved_routes.route_id": new ObjectId(routeId),
+      },
+      {
+        $inc: {
+          "saved_routes.$.times_completed": 1,
+        },
+        $set: { "saved_routes.$.completed": true },
+      },
+      { returnDocument: "after" }
+    );
+
+    return { route: result?.saved_routes[0] };
+  } catch (error) {
+    return { error: "Failed to update route with completed climb" };
   }
 }

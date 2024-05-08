@@ -1,15 +1,27 @@
 import Image from "next/image";
 import man_bouldering from "../../../../../../public/shirtless-sporty-male-climbing-indoor-climbing-wall.jpg";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { getCurrentRoute } from "@/lib/mongoDb/gyms";
 import RouteButtons from "./RouteButtons";
+import { getServerSession } from "next-auth";
+import { getCurrentUserByEmail, findRouteInUser } from "@/lib/mongoDb/users";
+import ProgressCard from "./ProgrssCard";
 
 export default async function Page({
   params: { id, route_id },
 }: {
   params: { id: string; route_id: string };
 }) {
+  const session = await getServerSession();
+  const user = await getCurrentUserByEmail({
+    email: session?.user?.email ?? "",
+  });
+
+  const savedCurrentRoute = await findRouteInUser({
+    userId: user.userId ?? "",
+    routeId: route_id,
+  });
+
   const currentRoute = await getCurrentRoute({ route_id });
   console.log(currentRoute.route);
   return (
@@ -25,29 +37,11 @@ export default async function Page({
           <h2 className="text-center font-semibold text-primary-foreground">
             {`${currentRoute.route?.name} ${currentRoute.route?.grade}`}
           </h2>
-          <Card className="mx-4 mt-10">
-            <CardTitle className="text-black m-2 text-base font-light">
-              Progress
-            </CardTitle>
-            <CardContent className="flex justify-around items-center gap-4">
-              <div className="text-black grid place-content-center text-center">
-                <span>0</span>
-                <span className="text-sm font-light">Completed</span>
-              </div>
-              <div className="text-black grid place-content-center text-center">
-                <span>0</span>
-                <span className="text-sm font-light">Achievments</span>
-              </div>
-              <div className="text-black grid place-content-center text-center">
-                <span>0</span>
-                <span className="text-sm font-light">Attempts</span>
-              </div>
-            </CardContent>
-          </Card>
+          <ProgressCard />
         </div>
 
         <div className="grid place-content-center gap-4 m-10 mx-20">
-          <RouteButtons />
+          <RouteButtons route_id={route_id} />
         </div>
       </div>
     </section>

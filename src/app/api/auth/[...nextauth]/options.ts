@@ -1,6 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import clientPromise from "@/lib/mongoDb";
 import { addNewUser } from "@/lib/mongoDb/users";
 
 export const options: NextAuthOptions = {
@@ -22,6 +21,7 @@ export const options: NextAuthOptions = {
         await addNewUser({
           name: profile.name,
           email: profile.email,
+          saved_routes: [],
         });
       }
 

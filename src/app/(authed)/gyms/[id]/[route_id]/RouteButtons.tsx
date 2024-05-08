@@ -1,19 +1,17 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import handleRoute from "./handleRoute";
 
-export default function RouteButtons() {
-  const handleTryClick = () => {
+export default function RouteButtons({ route_id }: { route_id: string }) {
+  const handleTryClick = async () => {
+    await handleRoute({ route_id: route_id, action: "try" });
     console.log("Clicked try");
   };
 
-  const handleCompletedClick = () => {
-    checkIsRouteSaved();
+  const handleCompletedClick = async () => {
+    await handleRoute({ route_id: route_id, action: "completed" });
     console.log("Clicked completed");
-  };
-
-  const checkIsRouteSaved = () => {
-    return;
   };
 
   return (
