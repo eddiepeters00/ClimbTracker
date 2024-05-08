@@ -9,10 +9,8 @@ export default async function Page({
   params: { id: string };
 }) {
   const gym = await getGym({ gym_id: id });
-  console.log("GYM from ID: ", gym.gym);
 
   const allGymRoutes = gym.gym && gym.gym.routes;
-  console.log("All gymroutes: ", allGymRoutes);
   return (
     <section>
       <Image

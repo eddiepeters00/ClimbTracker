@@ -76,7 +76,6 @@ export async function addNewUser(props: User) {
       saved_routes: [],
     };
     await users.insertOne(doc);
-    console.log("User inserted into DB");
   } catch (error) {
     return { error: "Failed to add a new user" };
   }
@@ -98,10 +97,35 @@ export async function findRouteInUser({
       "saved_routes.route_id": new ObjectId(routeId),
     });
 
-    console.log("[FIND ROUTE IN USER]: ", result);
-    return { route: result };
+    return { route: result?.saved_routes };
   } catch (error) {
     return { error: "Failed to update route in user" };
+  }
+}
+
+//Get the saved route by id
+export async function getSavedCurrentRoute({
+  userId,
+  routeId,
+}: {
+  userId: string;
+  routeId: string;
+}) {
+  try {
+    if (!users) await init();
+
+    const result = await users.findOne({
+      _id: new ObjectId(userId),
+      "saved_routes.route_id": new ObjectId(routeId),
+    });
+
+    return {
+      route: result?.saved_routes.find((savedRoute) =>
+        savedRoute.route_id.equals(new ObjectId(routeId))
+      ),
+    };
+  } catch (error) {
+    return { error: "Failed to get route in user" };
   }
 }
 
@@ -116,7 +140,7 @@ export async function saveRoute({
   try {
     if (!users) await init();
 
-    const result = await users.findOneAndUpdate(
+    await users.findOneAndUpdate(
       { _id: new ObjectId(userId) },
       {
         $push: {
@@ -128,10 +152,6 @@ export async function saveRoute({
           },
         },
       }
-    );
-    console.log(
-      "Route inserted into user saved_routes: ",
-      result?.saved_routes
     );
   } catch (error) {
     return { error: "Failed to save a new route to user" };

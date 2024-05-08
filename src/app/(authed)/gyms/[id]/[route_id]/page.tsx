@@ -1,10 +1,12 @@
 import Image from "next/image";
 import man_bouldering from "../../../../../../public/shirtless-sporty-male-climbing-indoor-climbing-wall.jpg";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { getCurrentRoute } from "@/lib/mongoDb/gyms";
 import RouteButtons from "./RouteButtons";
 import { getServerSession } from "next-auth";
-import { getCurrentUserByEmail, findRouteInUser } from "@/lib/mongoDb/users";
+import {
+  getCurrentUserByEmail,
+  getSavedCurrentRoute,
+} from "@/lib/mongoDb/users";
 import ProgressCard from "./ProgrssCard";
 
 export default async function Page({
@@ -17,13 +19,12 @@ export default async function Page({
     email: session?.user?.email ?? "",
   });
 
-  const savedCurrentRoute = await findRouteInUser({
+  const savedCurrentRoute = await getSavedCurrentRoute({
     userId: user.userId ?? "",
     routeId: route_id,
   });
 
   const currentRoute = await getCurrentRoute({ route_id });
-  console.log(currentRoute.route);
   return (
     <section className="grid h-[82dvh]">
       <Image
@@ -37,7 +38,7 @@ export default async function Page({
           <h2 className="text-center font-semibold text-primary-foreground">
             {`${currentRoute.route?.name} ${currentRoute.route?.grade}`}
           </h2>
-          <ProgressCard />
+          <ProgressCard currentRoute={savedCurrentRoute.route} />
         </div>
 
         <div className="grid place-content-center gap-4 m-10 mx-20">

@@ -20,7 +20,6 @@ export default function GymRouteCarusell({ routes, gym_id }: GymRouteProps) {
     <Carousel>
       <CarouselContent className="mx-2">
         {routes?.map((route) => {
-          console.log("Route ID: ", route._id);
           return (
             <Link key={route._id} href={`/gyms/${gym_id}/${route._id}`}>
               <CarouselItem className={`basis-1/4`}>
