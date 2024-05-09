@@ -7,6 +7,8 @@ export type Gym = {
   _id: string;
   name: string;
   location: string;
+  lat: number;
+  lng: number;
   routes: GymRoute[];
 };
 
