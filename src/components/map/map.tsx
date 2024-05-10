@@ -66,5 +66,5 @@ export default function Map({ gyms }: { gyms: Gym[] }) {
     initMap();
   }, []);
 
-  return <div className="h-[500px] text-black" ref={mapRef} />;
+  return <div className="h-[82dvh] text-black" ref={mapRef} />;
 }
