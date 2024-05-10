@@ -8,7 +8,6 @@ import {
   getSavedCurrentRoute,
 } from "@/lib/mongoDb/users";
 import ProgressCard from "../../../../../components/ProgressCard";
-import { ArrowLeft } from "lucide-react";
 
 export default async function Page({
   params: { id, route_id },
@@ -29,9 +28,9 @@ export default async function Page({
 
   const currentRoute = await getCurrentRoute({ route_id });
   return (
-    <section className="grid h-[82dvh]">
+    <section>
       <Image
-        className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10"
+        className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
         alt="Woman bouldering hanging on a wall with one arm loose"
         src={man_bouldering}
       />

@@ -14,7 +14,7 @@ export default async function Page({
   return (
     <section>
       <Image
-        className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10"
+        className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
         alt="Woman bouldering hanging on a wall with one arm loose"
         src={man_bouldering}
       />
@@ -24,7 +24,7 @@ export default async function Page({
           {gym.gym?.name}
         </h2>
 
-        <div>
+        <div className="overflow-hidden">
           <h3 className="ml-6 mb-2 text-sm">All routes</h3>
           <GymRouteCarusel routes={allGymRoutes} gym_id={gym.gym?._id ?? ""} />
         </div>

@@ -8,7 +8,7 @@ export default async function Page() {
   return (
     <section>
       <Image
-        className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10"
+        className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
         alt="Woman bouldering hanging on a wall with one arm loose"
         src={man_bouldering}
       />
