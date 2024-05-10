@@ -2,6 +2,7 @@
 
 import { Card, CardTitle } from "@/components/ui/card";
 import { Gym } from "@/lib/mongoDb/gyms";
+import { SavedRoute } from "@/lib/mongoDb/users";
 import Link from "next/link";
 
 type GymCardProps = {
@@ -13,7 +14,6 @@ export default function GymCard({ gym }: GymCardProps) {
     <Link href={`/gyms/${gym._id}`}>
       <Card className=" flex justify-between items-center text-black h-10 p-2">
         <CardTitle className="text-lg font-medium">{gym.name}</CardTitle>
-        <span className="">1/{gym.routes.length}</span>
       </Card>
     </Link>
   );

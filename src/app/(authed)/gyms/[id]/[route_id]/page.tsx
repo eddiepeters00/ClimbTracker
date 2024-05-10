@@ -8,6 +8,7 @@ import {
   getSavedCurrentRoute,
 } from "@/lib/mongoDb/users";
 import ProgressCard from "../../../../../components/ProgressCard";
+import { ArrowLeft } from "lucide-react";
 
 export default async function Page({
   params: { id, route_id },
@@ -40,13 +41,15 @@ export default async function Page({
           <h2 className="text-center font-semibold text-primary-foreground">
             {`${currentRoute.route?.name} ${currentRoute.route?.grade}`}
           </h2>
-          <ProgressCard
-            progress={{
-              total_completed: savedCurrentRoute.route?.times_completed,
-              total_tries: savedCurrentRoute.route?.tries,
-              total_tries_completed: savedCurrentRoute.route?.times_completed,
-            }}
-          />
+          <div className="m-5">
+            <ProgressCard
+              progress={{
+                total_completed: savedCurrentRoute.route?.times_completed,
+                total_tries: savedCurrentRoute.route?.tries,
+                total_tries_completed: savedCurrentRoute.route?.times_completed,
+              }}
+            />
+          </div>
         </div>
 
         <div className="grid place-content-center gap-4 m-10 mx-20">

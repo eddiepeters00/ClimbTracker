@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -15,24 +14,26 @@ type GymRouteProps = {
   gym_id: string;
 };
 
-export default function GymRouteCarusell({ routes, gym_id }: GymRouteProps) {
+export default function GymRouteCarusel({ routes, gym_id }: GymRouteProps) {
   return (
-    <Carousel>
+    <Carousel
+      opts={{
+        align: "start",
+      }}
+      className="w-full max-w-sm"
+    >
       <CarouselContent className="mx-2">
         {routes?.map((route) => {
+          console.log(route.color);
           return (
-            <Link key={route._id} href={`/gyms/${gym_id}/${route._id}`}>
-              <CarouselItem className={`basis-1/4`}>
-                <Card className={`bg-${route.color}-400 relative p-2`}>
-                  <span className="absolute top-0 left-0 p-1 text-xs mix-blend-difference">
-                    {route.grade}
-                  </span>
-                  <CardContent className="grid place-content-center aspect-square p-0">
-                    <span className="text-xs font-semibold mix-blend-difference">
-                      {route.name}
-                    </span>
-                  </CardContent>
-                </Card>
+            <Link
+              className="m-2"
+              style={{ backgroundColor: route.color }}
+              key={route._id}
+              href={`/gyms/${gym_id}/${route._id}`}
+            >
+              <CarouselItem className={`basis-1/3 p-2 text-center grid`}>
+                {route.name}
               </CarouselItem>
             </Link>
           );

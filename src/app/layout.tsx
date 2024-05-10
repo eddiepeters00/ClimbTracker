@@ -21,10 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="h-svh" lang="en">
-      <body
-        className={`${poppins.className} relative flex flex-col min-h-dvh overflow-hidden`}
-      >
+    <html className="h-full" lang="en">
+      <body className={`${poppins.className} relative flex flex-col h-full`}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

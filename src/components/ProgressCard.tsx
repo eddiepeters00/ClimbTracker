@@ -13,11 +13,13 @@ export default function ProgressCard({
 }) {
   let average_tries = 0;
   if (progress?.total_tries_completed && progress.total_tries) {
-    average_tries = progress.total_tries_completed / progress.total_tries;
+    average_tries =
+      progress.total_tries_completed /
+      (progress.total_tries + progress.total_tries_completed);
   }
 
   return (
-    <Card className="m-5 p-4">
+    <Card className="p-4">
       <div className="flex justify-around items-center gap-4">
         <div className="text-black grid place-content-center text-center">
           <span>{progress?.total_completed ?? 0}</span>
@@ -26,7 +28,7 @@ export default function ProgressCard({
 
         <div className="text-black grid place-content-center text-center">
           <span>{progress?.total_tries ?? 0}</span>
-          <span className="text-sm font-light">Attempts</span>
+          <span className="text-sm font-light">Sends</span>
         </div>
 
         <div className="text-black grid place-content-center text-center">
