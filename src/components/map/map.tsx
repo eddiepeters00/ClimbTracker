@@ -5,9 +5,11 @@ import { Loader } from "@googlemaps/js-api-loader";
 import { useRouter } from "next/navigation";
 import { Gym } from "@/lib/mongoDb/gyms";
 
-export default function Map({ gymProps }: { gymProps: Gym }) {
+export default function Map({ gyms }: { gyms: Gym[] }) {
   const mapRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  console.log(gyms);
 
   useEffect(() => {
     const initMap = async () => {
@@ -23,33 +25,41 @@ export default function Map({ gymProps }: { gymProps: Gym }) {
         "marker"
       )) as google.maps.MarkerLibrary;
 
-      const position = {
-        lat: gymProps.lat,
-        lng: gymProps.lng,
+      //Coordinates of Malmö
+      const rootPosition = {
+        lat: 55.60467789745106,
+        lng: 13.009103980109412,
       };
 
-      //Map options
-      const mapOptions = {
-        center: position,
-        zoom: 17,
-        mapId: "365854c34f5924d0",
-      };
       //Setup map
-      const map = new Map(mapRef.current as HTMLDivElement, mapOptions);
-
-      const infoWindow = new google.maps.InfoWindow({
-        content: gymProps.name,
+      const map = new Map(mapRef.current as HTMLDivElement, {
+        center: rootPosition,
+        zoom: 12,
+        mapId: "365854c34f5924d0",
+        fullscreenControl: false,
+        zoomControl: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        keyboardShortcuts: false,
       });
 
-      //Put up marker
-      const marker = new AdvancedMarkerElement({
-        map: map,
-        position: position,
-        title: gymProps.name,
-      });
-      infoWindow.open(map, marker);
-      google.maps.event.addListener(marker, "click", function () {
-        router.push(`/gyms/${gymProps._id}`);
+      gyms.forEach((gym) => {
+        const infoWindow = new google.maps.InfoWindow({
+          content: gym.name,
+        });
+
+        //Put up marker
+        const marker = new AdvancedMarkerElement({
+          map: map,
+          position: { lat: gym.lat, lng: gym.lng },
+          title: gym.name,
+        });
+
+        infoWindow.open(map, marker);
+
+        google.maps.event.addListener(marker, "click", function () {
+          router.push(`/gyms/${gym._id}`);
+        });
       });
     };
 

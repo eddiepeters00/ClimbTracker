@@ -7,7 +7,7 @@ export default async function Page() {
 
   return (
     <>
-      {gyms.gyms && <Map gymProps={gyms.gyms[0]} />}
+      {gyms.gyms && <Map gyms={gyms.gyms} />}
       <Signout />
     </>
   );
