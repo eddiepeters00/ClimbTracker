@@ -51,7 +51,7 @@ export async function getCurrentUserByEmail({ email }: { email: string }) {
   try {
     if (!users) await init();
     const result = await users.findOne({ email: email });
-    return { userId: result?._id.toString() };
+    return { user: result };
   } catch (error) {
     return { error: "Failed to fetch current user" };
   }

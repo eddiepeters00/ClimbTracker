@@ -21,26 +21,27 @@ export default async function handleRoute({
     email: session?.user?.email ?? "",
   });
 
-  if (!user.userId) return;
+  if (!user.user?._id) return;
+  const userId = user.user._id.toString();
 
   const routeExists = await findRouteInUser({
-    userId: user.userId,
+    userId: userId,
     routeId: route_id,
   });
 
   //If route dosnt exist in user, save it
   if (!routeExists.route)
-    return saveRoute({ userId: user.userId, routeId: route_id });
+    return saveRoute({ userId: userId, routeId: route_id });
 
   let completedAction;
   if (action === "completed") {
     completedAction = await addCompletedRoute({
-      userId: user.userId,
+      userId: userId,
       routeId: route_id,
     });
   } else {
     completedAction = await addTryToRoute({
-      userId: user.userId,
+      userId: userId,
       routeId: route_id,
     });
   }
