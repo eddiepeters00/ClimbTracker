@@ -74,3 +74,30 @@ export async function getCurrentRoute({ route_id }: { route_id: string }) {
     return { error: "Failed to fetch route" };
   }
 }
+
+export async function getAllRoutes() {
+  try {
+    if (!gyms) await init();
+    const result = await gyms
+      .aggregate([
+        { $unwind: "$routes" },
+        {
+          $project: {
+            gym_id: "$_id",
+            gym_name: "$name",
+            route_name: "$routes.name",
+            description: "$routes.description",
+            grade: "$routes.grade",
+            color: "$routes.color",
+            location: "$routes.location",
+            lat: "$routes.lat",
+            lng: "$routes.lng",
+          },
+        },
+      ])
+      .toArray();
+    return { routes: result };
+  } catch (error) {
+    return { error: "Failed to fetch routes" };
+  }
+}

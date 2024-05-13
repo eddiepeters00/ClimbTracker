@@ -12,12 +12,12 @@ import { getAchievements } from "@/lib/mongoDb/achievements";
 import { Suspense } from "react";
 import { SkewLoader } from "react-spinners";
 
-type TotalProgress = {
+export type TotalProgress = {
   times_completed: number;
   tries: number;
 };
 
-type TotalTriesCompleted = Pick<TotalProgress, "times_completed">;
+export type TotalTriesCompleted = Pick<TotalProgress, "times_completed">;
 
 export default async function Page() {
   const session = await getServerSession();

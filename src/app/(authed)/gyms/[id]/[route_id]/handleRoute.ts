@@ -1,5 +1,6 @@
 "use server";
 
+import updateAchievements from "@/lib/achievementLogic";
 import {
   addCompletedRoute,
   addTryToRoute,
@@ -45,5 +46,9 @@ export default async function handleRoute({
       routeId: route_id,
     });
   }
+
+  //Update achievements
+  updateAchievements({ user: user.user });
+
   return completedAction;
 }

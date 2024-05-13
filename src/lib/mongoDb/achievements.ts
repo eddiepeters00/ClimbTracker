@@ -4,7 +4,6 @@ import clientPromise from ".";
 let achievement: Collection<Achievement>;
 export type Achievement = {
   icon: string;
-  completed: boolean;
   message: string;
   _id: string;
 };
