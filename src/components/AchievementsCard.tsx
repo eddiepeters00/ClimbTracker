@@ -1,6 +1,12 @@
 import { Achievement } from "@/lib/mongoDb/achievements";
 import { Card } from "./ui/card";
 import { Trophy, Medal, Award, Gem, Ribbon, Crown } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type Props = {
   achievements?: Achievement[];
@@ -24,15 +30,23 @@ export default function AchivementsCard({
     <Card className="p-4">
       <ul className="flex items-center justify-evenly">
         {achievements?.map((achievement) => (
-          <li
-            key={achievement._id}
-            className={
-              userAchievements?.includes(achievement._id)
-                ? "blur-none"
-                : "blur-sm"
-            }
-          >
-            {iconMap.get(achievement.icon)}
+          <li key={achievement._id}>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger
+                  className={
+                    userAchievements?.includes(achievement._id)
+                      ? "blur-none"
+                      : "blur-sm"
+                  }
+                >
+                  {iconMap.get(achievement.icon)}
+                </TooltipTrigger>
+                <TooltipContent className="text-black">
+                  {achievement.message}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </li>
         ))}
       </ul>
