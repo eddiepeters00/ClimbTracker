@@ -22,9 +22,8 @@ export default function GymRouteCarusel({ routes, gym_id }: GymRouteProps) {
       }}
       className="w-full max-w-sm"
     >
-      <CarouselContent className="mx-2">
+      <CarouselContent className="mx-2 opacity-80">
         {routes?.map((route) => {
-          console.log(route.color);
           return (
             <Link
               className="m-2"
@@ -32,7 +31,9 @@ export default function GymRouteCarusel({ routes, gym_id }: GymRouteProps) {
               key={route._id}
               href={`/gyms/${gym_id}/${route._id}`}
             >
-              <CarouselItem className={`basis-1/3 p-2 text-center grid`}>
+              <CarouselItem
+                className={`basis-1/3 p-2 text-center grid text-lg font-extrabold mix-blend-difference`}
+              >
                 {route.name}
               </CarouselItem>
             </Link>
