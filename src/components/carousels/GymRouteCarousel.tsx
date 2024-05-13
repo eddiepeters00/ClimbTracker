@@ -20,7 +20,7 @@ export default function GymRouteCarousel({ routes, gym_id }: GymRouteProps) {
       opts={{
         align: "start",
       }}
-      className="w-full max-w-sm"
+      className="w-full"
     >
       <CarouselContent className="mx-2 opacity-80">
         {routes?.map((route) => {
