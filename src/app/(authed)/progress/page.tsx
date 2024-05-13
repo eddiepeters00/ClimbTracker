@@ -2,9 +2,13 @@ import Image from "next/image";
 import person_climbing_outside from "../../../../public/248.jpg";
 import AvatarContainer from "./AvatarContainer";
 import { getServerSession } from "next-auth";
-import { getCurrentUserByEmail } from "@/lib/mongoDb/users";
+import {
+  getCurrentUserByEmail,
+  getUserAchievements,
+} from "@/lib/mongoDb/users";
 import ProgressCard from "@/components/ProgressCard";
 import AchivementsCard from "@/components/AchievementsCard";
+import { getAchievements } from "@/lib/mongoDb/achievements";
 
 type TotalProgress = {
   times_completed: number;
@@ -17,6 +21,11 @@ export default async function Page() {
   const session = await getServerSession();
   const user = await getCurrentUserByEmail({
     email: session?.user?.email ?? "",
+  });
+
+  const achievements = await getAchievements();
+  const userAchievements = await getUserAchievements({
+    userId: user.user?._id.toString() ?? "",
   });
 
   const totalCompletedRoutes = user.user?.saved_routes.filter(
@@ -74,7 +83,10 @@ export default async function Page() {
 
         <div>
           <h3>Achievements</h3>
-          <AchivementsCard />
+          <AchivementsCard
+            achievements={achievements.achievements}
+            userAchievements={userAchievements.achievements}
+          />
         </div>
       </div>
     </section>

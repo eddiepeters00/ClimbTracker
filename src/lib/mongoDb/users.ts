@@ -1,5 +1,6 @@
 import { Collection, ObjectId } from "mongodb";
 import clientPromise from ".";
+import { Achievement } from "./achievements";
 
 let users: Collection<User>;
 
@@ -15,6 +16,7 @@ export type User = {
   email: string;
   picture?: string;
   saved_routes: SavedRoute[];
+  achievements: string[];
 };
 
 async function init() {
@@ -74,6 +76,7 @@ export async function addNewUser(props: User) {
       email: props.email,
       picture: props.picture,
       saved_routes: [],
+      achievements: [],
     };
     await users.insertOne(doc);
   } catch (error) {
@@ -215,5 +218,23 @@ export async function addCompletedRoute({
     return { route: result?.saved_routes[0] };
   } catch (error) {
     return { error: "Failed to update route with completed climb" };
+  }
+}
+
+//Get all users achievements
+export async function getUserAchievements({ userId }: { userId: string }) {
+  try {
+    if (!users) await init();
+
+    const user = await users.findOne({
+      _id: new ObjectId(userId),
+    });
+
+    return {
+      achievements:
+        user?.achievements.map((achievements) => achievements.toString()) ?? [],
+    };
+  } catch (error) {
+    return { error: "Failed to fetch user achievements" };
   }
 }

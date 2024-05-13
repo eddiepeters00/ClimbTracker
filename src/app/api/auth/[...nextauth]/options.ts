@@ -21,7 +21,9 @@ export const options: NextAuthOptions = {
         await addNewUser({
           name: profile.name,
           email: profile.email,
+          picture: profile.image,
           saved_routes: [],
+          achievements: [],
         });
       }
 

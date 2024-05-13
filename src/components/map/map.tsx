@@ -9,8 +9,6 @@ export default function Map({ gyms }: { gyms: Gym[] }) {
   const mapRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  console.log(gyms);
-
   useEffect(() => {
     const initMap = async () => {
       const loader = new Loader({
