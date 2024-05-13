@@ -22,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html className="h-full" lang="en">
-      <body className={`${poppins.className} relative flex flex-col h-full`}>
+      <body
+        className={`${poppins.className} relative flex flex-col h-full max-w-[1000px] mx-auto`}
+      >
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

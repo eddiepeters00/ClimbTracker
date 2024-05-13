@@ -11,7 +11,7 @@ export default async function Page() {
     <Suspense fallback={<SkewLoader color="#36d7b7" />}>
       <section>
         <Image
-          className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
+          className="h-full w-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
           alt="Woman bouldering hanging on a wall with one arm loose"
           src={man_bouldering}
         />
