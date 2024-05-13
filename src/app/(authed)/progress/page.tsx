@@ -9,6 +9,8 @@ import {
 import ProgressCard from "@/components/ProgressCard";
 import AchivementsCard from "@/components/AchievementsCard";
 import { getAchievements } from "@/lib/mongoDb/achievements";
+import { Suspense } from "react";
+import { SkewLoader } from "react-spinners";
 
 type TotalProgress = {
   times_completed: number;
@@ -55,40 +57,42 @@ export default async function Page() {
     )?.times_completed ?? 0;
 
   return (
-    <section>
-      <Image
-        className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
-        alt="Woman bouldering hanging on a wall with one arm loose"
-        src={person_climbing_outside}
-      />
-
-      <div className="p-5">
-        <AvatarContainer
-          img={user.user?.picture ?? ""}
-          name={user.user?.name ?? ""}
+    <Suspense fallback={<SkewLoader color="#36d7b7" />}>
+      <section>
+        <Image
+          className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
+          alt="Woman bouldering hanging on a wall with one arm loose"
+          src={person_climbing_outside}
         />
-      </div>
 
-      <div className="mx-5 mt-5 grid gap-10">
-        <div>
-          <h3>Total Progress</h3>
-          <ProgressCard
-            progress={{
-              total_completed: totalCompletedRoutes,
-              total_tries: totalTries,
-              total_tries_completed: totalTimesCompleted,
-            }}
+        <div className="p-5">
+          <AvatarContainer
+            img={user.user?.picture ?? ""}
+            name={user.user?.name ?? ""}
           />
         </div>
 
-        <div>
-          <h3>Achievements</h3>
-          <AchivementsCard
-            achievements={achievements.achievements}
-            userAchievements={userAchievements.achievements}
-          />
+        <div className="mx-5 mt-5 grid gap-10">
+          <div>
+            <h3>Total Progress</h3>
+            <ProgressCard
+              progress={{
+                total_completed: totalCompletedRoutes,
+                total_tries: totalTries,
+                total_tries_completed: totalTimesCompleted,
+              }}
+            />
+          </div>
+
+          <div>
+            <h3>Achievements</h3>
+            <AchivementsCard
+              achievements={achievements.achievements}
+              userAchievements={userAchievements.achievements}
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </Suspense>
   );
 }

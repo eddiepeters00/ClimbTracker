@@ -14,7 +14,7 @@ type GymRouteProps = {
   gym_id: string;
 };
 
-export default function GymRouteCarusel({ routes, gym_id }: GymRouteProps) {
+export default function GymRouteCarousel({ routes, gym_id }: GymRouteProps) {
   return (
     <Carousel
       opts={{
