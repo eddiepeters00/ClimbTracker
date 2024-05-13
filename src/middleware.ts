@@ -2,4 +2,6 @@
 export { default } from "next-auth/middleware";
 
 //Enables auth on specified pages
-export const config = { matcher: ["/gyms", "/progress", "/community"] };
+export const config = {
+  matcher: ["/home", "/gyms", "/progress", "/community"],
+};
