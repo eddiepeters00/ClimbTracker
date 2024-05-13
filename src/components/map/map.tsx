@@ -19,7 +19,7 @@ export default function Map({ gyms }: { gyms: Gym[] }) {
       const { Map } = await loader.importLibrary("maps");
 
       //Init marker
-      const { AdvancedMarkerElement } = (await loader.importLibrary(
+      const { AdvancedMarkerElement, PinElement } = (await loader.importLibrary(
         "marker"
       )) as google.maps.MarkerLibrary;
 
@@ -46,11 +46,18 @@ export default function Map({ gyms }: { gyms: Gym[] }) {
           content: gym.name,
         });
 
+        const pinElement = new PinElement({
+          background: "#3836a6",
+          borderColor: "white",
+          glyphColor: "white",
+        });
+
         //Put up marker
         const marker = new AdvancedMarkerElement({
           map: map,
           position: { lat: gym.lat, lng: gym.lng },
           title: gym.name,
+          content: pinElement.element,
         });
 
         infoWindow.open(map, marker);
