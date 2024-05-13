@@ -7,7 +7,7 @@ export default async function Page() {
   const gyms = await getGyms();
 
   return (
-    <Suspense fallback={<SkewLoader />}>
+    <Suspense fallback={<SkewLoader color="#36d7b7" />}>
       {gyms.gyms && <Map gyms={gyms.gyms} />}
     </Suspense>
   );

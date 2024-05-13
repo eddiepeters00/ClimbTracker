@@ -14,7 +14,7 @@ export default async function Page({
 
   const allGymRoutes = gym.gym && gym.gym.routes;
   return (
-    <Suspense fallback={<SkewLoader />}>
+    <Suspense fallback={<SkewLoader color="#36d7b7" />}>
       <section>
         <Image
           className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
