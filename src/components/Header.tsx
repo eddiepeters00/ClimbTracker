@@ -17,7 +17,7 @@ export default function Header() {
       <h1 className="text-primary font-bold text-xl">Climb Tracker</h1>
       <DropdownMenu>
         <DropdownMenuTrigger className="absolute right-0 top-0 p-2 text-black">
-          <Settings />
+          <Settings aria-label="Settings" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel className="text-black">
@@ -25,6 +25,7 @@ export default function Header() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
+            aria-label="Sign out"
             className="flex items-center gap-2 text-black"
             onClick={() => signOut({ callbackUrl: "/" })}
           >

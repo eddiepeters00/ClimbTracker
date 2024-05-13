@@ -74,7 +74,7 @@ export default async function Page() {
 
         <div className="mx-5 mt-5 grid gap-10">
           <div>
-            <h3>Total Progress</h3>
+            <h2>Total Progress</h2>
             <ProgressCard
               progress={{
                 total_completed: totalCompletedRoutes,
@@ -85,7 +85,7 @@ export default async function Page() {
           </div>
 
           <div>
-            <h3>Achievements</h3>
+            <h2>Achievements</h2>
             <AchivementsCard
               achievements={achievements.achievements}
               userAchievements={userAchievements.achievements}

@@ -23,12 +23,10 @@ export default function AvatarContainer({
 
   const initials = getInitials(name);
 
-  console.log(img);
-
   return (
     <div {...props} className="flex items-center gap-2 text-primary">
       <Avatar>
-        <AvatarImage src={img} />
+        <AvatarImage src={img} alt="Avatar" />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
 
