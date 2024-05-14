@@ -12,6 +12,7 @@ export type SavedRoute = {
 };
 
 export type User = {
+  _id?: ObjectId;
   name: string;
   email: string;
   picture?: string;
@@ -221,7 +222,7 @@ export async function addCompletedRoute({
   }
 }
 
-//Get all users achievements
+//Get users achievements
 export async function getUserAchievements({ userId }: { userId: string }) {
   try {
     if (!users) await init();
@@ -229,6 +230,33 @@ export async function getUserAchievements({ userId }: { userId: string }) {
     const user = await users.findOne({
       _id: new ObjectId(userId),
     });
+
+    return {
+      achievements:
+        user?.achievements.map((achievements) => achievements.toString()) ?? [],
+    };
+  } catch (error) {
+    return { error: "Failed to fetch user achievements" };
+  }
+}
+
+//Insert achievements to user
+export async function addAchievementToUser({
+  userId,
+  achievementId,
+}: {
+  userId: string;
+  achievementId: string;
+}) {
+  try {
+    if (!users) await init();
+
+    const user = await users.findOneAndUpdate(
+      {
+        _id: new ObjectId(userId),
+      },
+      { $push: { achievements: achievementId } }
+    );
 
     return {
       achievements:

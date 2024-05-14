@@ -66,10 +66,22 @@ export async function getCurrentRoute({ route_id }: { route_id: string }) {
   try {
     if (!gyms) await init();
     const routeId = new ObjectId(route_id);
-    const result = await gyms.findOne({
-      "routes._id": routeId,
-    });
-    return { route: result?.routes[0] };
+    const result = await gyms
+      .aggregate([
+        { $unwind: "$routes" },
+        { $match: { "routes._id": routeId } },
+        {
+          $project: {
+            _id: "$routes._id",
+            name: "$routes.name",
+            description: "$routes.description",
+            grade: "$routes.grade",
+            color: "$routes.color",
+          },
+        },
+      ])
+      .toArray();
+    return { route: result[0] };
   } catch (error) {
     return { error: "Failed to fetch route" };
   }

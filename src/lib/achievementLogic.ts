@@ -1,7 +1,7 @@
 import { TotalProgress } from "@/app/(authed)/progress/page";
 import { getAchievements } from "./mongoDb/achievements";
-import { GymRoute, getAllRoutes } from "./mongoDb/gyms";
-import { User } from "./mongoDb/users";
+import { getAllRoutes } from "./mongoDb/gyms";
+import { User, addAchievementToUser } from "./mongoDb/users";
 import { Document } from "mongodb";
 
 type Achievement = {
@@ -18,18 +18,20 @@ export default async function updateAchievements({ user }: Props) {
   const achievements = await getAchievements();
   const routes = await getAllRoutes();
 
-  const completedAchievements = [];
-
-  if (achievements.achievements)
+  if (achievements.achievements && routes.routes) {
     for (const achievement of achievements.achievements) {
       //Check if the user has completed this achievement
-      if (routes.routes)
-        if (hasCompletedAchievement(routes.routes, achievement, user)) {
-          completedAchievements.push(achievement);
+      if (hasCompletedAchievement(routes.routes, achievement, user)) {
+        //Check if the user already has the achievement
+        if (!user.achievements.includes(achievement._id)) {
+          await addAchievementToUser({
+            userId: user._id?.toString() ?? "",
+            achievementId: achievement._id,
+          });
         }
+      }
     }
-
-  console.log("Completed achievements: ", completedAchievements);
+  }
 }
 
 //Function to check if the user has completed a specific achievement

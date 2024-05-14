@@ -29,6 +29,7 @@ export default async function Page({
   });
 
   const currentRoute = await getCurrentRoute({ route_id });
+  console.log("CURRENT ROUTE: ", currentRoute, "ROUTE ID: ", route_id);
   return (
     <Suspense
       fallback={
