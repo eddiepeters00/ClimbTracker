@@ -9,7 +9,7 @@ import {
 } from "@/lib/mongoDb/users";
 import ProgressCard from "../../../../../components/ProgressCard";
 import { Suspense } from "react";
-import { SkewLoader } from "react-spinners";
+import { CircleLoader } from "react-spinners";
 
 export default async function Page({
   params: { id, route_id },
@@ -30,7 +30,11 @@ export default async function Page({
 
   const currentRoute = await getCurrentRoute({ route_id });
   return (
-    <Suspense fallback={<SkewLoader color="#36d7b7" />}>
+    <Suspense
+      fallback={
+        <CircleLoader color="#36d7b7" className="absolute top-1/2 right-1/2" />
+      }
+    >
       <section>
         <Image
           className="h-full w-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"

@@ -10,7 +10,7 @@ import ProgressCard from "@/components/ProgressCard";
 import AchivementsCard from "@/components/AchievementsCard";
 import { getAchievements } from "@/lib/mongoDb/achievements";
 import { Suspense } from "react";
-import { SkewLoader } from "react-spinners";
+import { CircleLoader } from "react-spinners";
 
 export type TotalProgress = {
   times_completed: number;
@@ -57,7 +57,11 @@ export default async function Page() {
     )?.times_completed ?? 0;
 
   return (
-    <Suspense fallback={<SkewLoader color="#36d7b7" />}>
+    <Suspense
+      fallback={
+        <CircleLoader color="#36d7b7" className="absolute top-1/2 right-1/2" />
+      }
+    >
       <section>
         <Image
           className="h-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"

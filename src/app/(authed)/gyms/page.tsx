@@ -3,12 +3,16 @@ import man_bouldering from "../../../../public/shirtless-sporty-male-climbing-in
 import { getGyms } from "@/lib/mongoDb/gyms";
 import GymCard from "./GymCard";
 import { Suspense } from "react";
-import { SkewLoader } from "react-spinners";
+import { CircleLoader } from "react-spinners";
 
 export default async function Page() {
   const gyms = await getGyms();
   return (
-    <Suspense fallback={<SkewLoader color="#36d7b7" />}>
+    <Suspense
+      fallback={
+        <CircleLoader color="#36d7b7" className="absolute top-1/2 right-1/2" />
+      }
+    >
       <section>
         <Image
           className="h-full w-full object-cover absolute bg-blend-darken brightness-75 -z-10 inset-0"
