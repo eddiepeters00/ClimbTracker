@@ -95,19 +95,16 @@ export async function getAllRoutes() {
         { $unwind: "$routes" },
         {
           $project: {
-            gym_id: "$_id",
-            gym_name: "$name",
+            _id: "$routes._id",
             route_name: "$routes.name",
             description: "$routes.description",
             grade: "$routes.grade",
             color: "$routes.color",
-            location: "$routes.location",
-            lat: "$routes.lat",
-            lng: "$routes.lng",
           },
         },
       ])
       .toArray();
+
     return { routes: result };
   } catch (error) {
     return { error: "Failed to fetch routes" };

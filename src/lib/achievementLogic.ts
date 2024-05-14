@@ -1,14 +1,8 @@
 import { TotalProgress } from "@/app/(authed)/progress/page";
-import { getAchievements } from "./mongoDb/achievements";
+import { getAchievements, Achievement } from "./mongoDb/achievements";
 import { getAllRoutes } from "./mongoDb/gyms";
 import { User, addAchievementToUser } from "./mongoDb/users";
-import { Document } from "mongodb";
-
-type Achievement = {
-  _id: string;
-  icon: string;
-  message: string;
-};
+import { Document, ObjectId } from "mongodb";
 
 type Props = {
   user: User;
@@ -22,8 +16,23 @@ export default async function updateAchievements({ user }: Props) {
     for (const achievement of achievements.achievements) {
       //Check if the user has completed this achievement
       if (hasCompletedAchievement(routes.routes, achievement, user)) {
+        console.log(
+          "Check for completed achievements: ",
+          hasCompletedAchievement(routes.routes, achievement, user)
+        );
         //Check if the user already has the achievement
-        if (!user.achievements.includes(achievement._id)) {
+        if (
+          !user.achievements.some(
+            (userAchievement) =>
+              userAchievement.toString() === achievement._id.toString()
+          )
+        ) {
+          console.log(
+            "USER ACHIEVEMENTS: ",
+            user.achievements,
+            "CURRENT ACHIEVEMENT ID: ",
+            achievement._id
+          );
           await addAchievementToUser({
             userId: user._id?.toString() ?? "",
             achievementId: achievement._id,
@@ -42,7 +51,7 @@ function hasCompletedAchievement(
 ): boolean {
   const completedRoutes = user.saved_routes.filter((route) => route.completed);
 
-  switch (achievement._id) {
+  switch (achievement._id.toString()) {
     case "6641c8b8fe9c1c970e949290": //Completed your first climb
       return completedRoutes.length >= 1;
 
@@ -53,10 +62,14 @@ function hasCompletedAchievement(
       return completedRoutes.length >= 20;
 
     case "6641c960fe9c1c970e949292": //Completed 5 routes graded 6A
-      const completed6ARoutes = completedRoutes.filter((route) =>
-        routes.find((r) => r.grade === "6A" && r._id === route.route_id)
+      return (
+        completedRoutes.filter((route) =>
+          routes.some(
+            (r) =>
+              r.grade === "6A" && r._id.toString() === route.route_id.toString()
+          )
+        ).length >= 5
       );
-      return completed6ARoutes.length >= 5;
 
     case "6641c967fe9c1c970e949294": //Tried routes 100 times total
       const totalTries =
@@ -73,10 +86,14 @@ function hasCompletedAchievement(
       return totalTries >= 100;
 
     case "6641c96dfe9c1c970e949295": //Completed a 7C
-      const completed7CRoutes = completedRoutes.filter((route) =>
-        routes.find((r) => r.grade === "7C" && r._id === route.route_id)
+      return (
+        completedRoutes.filter((route) =>
+          routes.some(
+            (r) =>
+              r.grade === "7C" && r._id.toString() === route.route_id.toString()
+          )
+        ).length > 0
       );
-      return completed7CRoutes.length >= 1;
 
     default:
       return false;

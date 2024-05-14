@@ -30,12 +30,12 @@ export default function AchivementsCard({
     <Card className="p-4">
       <ul className="flex items-center justify-evenly">
         {achievements?.map((achievement) => (
-          <li key={achievement._id}>
+          <li key={achievement._id.toString()}>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger
                   className={
-                    userAchievements?.includes(achievement._id)
+                    userAchievements?.includes(achievement._id.toString())
                       ? "blur-none"
                       : "blur-sm"
                   }

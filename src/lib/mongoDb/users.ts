@@ -17,7 +17,7 @@ export type User = {
   email: string;
   picture?: string;
   saved_routes: SavedRoute[];
-  achievements: string[];
+  achievements: ObjectId[];
 };
 
 async function init() {
@@ -246,7 +246,7 @@ export async function addAchievementToUser({
   achievementId,
 }: {
   userId: string;
-  achievementId: string;
+  achievementId: ObjectId;
 }) {
   try {
     if (!users) await init();

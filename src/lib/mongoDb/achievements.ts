@@ -1,11 +1,11 @@
-import { Collection } from "mongodb";
+import { Collection, ObjectId } from "mongodb";
 import clientPromise from ".";
 
 let achievement: Collection<Achievement>;
 export type Achievement = {
   icon: string;
   message: string;
-  _id: string;
+  _id: ObjectId;
 };
 
 async function init() {
@@ -30,7 +30,7 @@ export async function getAchievements() {
       .find({})
       .map((achievement) => ({
         ...achievement,
-        _id: achievement._id.toString(),
+        _id: achievement._id,
       }))
       .toArray();
 
