@@ -5,11 +5,12 @@ Welcome to ClimbTracker, your ultimate companion for tracking your climbing prog
 ## Features
 * __Track Your Progress:__ Log your climbing attempts and successful ascents to monitor your improvement over time.
 * __Find Gyms:__ Discover nearby climbing gyms and their available routes, making it easier than ever to plan your next climbing session.
-* __User Registration:__ Create your personal account to save your climbing history and preferences, ensuring a tailored experience every time you use ClimbTracker.
+* __User Registration:__ Easily sign in using your Google account for seamless access.
+* __Unlock Achievements__  Gain motivational milestones to enhance your journey.
 
 🥇 Stay tuned for updates and new features as I continue to enhance ClimbTracker to support your climbing journey!
 
-## Requirement specifikation
+## Requirement specification
 
 I have created a detailed requirement specification following the MoSCoW method for this project. Check it out in Swedish here:  [Kravdokument](https://1drv.ms/w/c/35e776f45a281d43/EcmUpH-stJNPoIkEP7VtxxkB47b0srZPkUHo2BTTtHvmuw?e=EkwBxH)
 
