@@ -57,7 +57,7 @@ export default function GymRouteCarousel({
             {variant === "all"
               ? "All routes"
               : variant === "not_completed"
-              ? "Not completed projects"
+              ? "Unfinished projects"
               : "Recent projects"}
           </h3>
           <Carousel
