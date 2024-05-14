@@ -4,14 +4,19 @@ import GymRouteCarousel from "@/components/carousels/GymRouteCarousel";
 import { getGym } from "@/lib/mongoDb/gyms";
 import { Suspense } from "react";
 import { CircleLoader } from "react-spinners";
+import { getServerSession } from "next-auth";
+import { getCurrentUserByEmail } from "@/lib/mongoDb/users";
 
 export default async function Page({
   params: { id },
 }: {
   params: { id: string };
 }) {
+  const session = await getServerSession();
+  const user = await getCurrentUserByEmail({
+    email: session?.user?.email ?? "",
+  });
   const gym = await getGym({ gym_id: id });
-
   const allGymRoutes = gym.gym && gym.gym.routes;
   return (
     <Suspense
@@ -32,10 +37,29 @@ export default async function Page({
           </h2>
 
           <div className="overflow-hidden">
-            <h3 className="ml-6 mb-2 text-sm">All routes</h3>
             <GymRouteCarousel
+              user={user.user}
               routes={allGymRoutes}
               gym_id={gym.gym?._id ?? ""}
+              variant="recent"
+            />
+          </div>
+
+          <div className="overflow-hidden">
+            <GymRouteCarousel
+              user={user.user}
+              routes={allGymRoutes}
+              gym_id={gym.gym?._id ?? ""}
+              variant="not_completed"
+            />
+          </div>
+
+          <div className="overflow-hidden">
+            <GymRouteCarousel
+              user={user.user}
+              routes={allGymRoutes}
+              gym_id={gym.gym?._id ?? ""}
+              variant="all"
             />
           </div>
         </div>

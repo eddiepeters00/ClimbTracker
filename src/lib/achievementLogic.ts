@@ -2,7 +2,7 @@ import { TotalProgress } from "@/app/(authed)/progress/page";
 import { getAchievements, Achievement } from "./mongoDb/achievements";
 import { getAllRoutes } from "./mongoDb/gyms";
 import { User, addAchievementToUser } from "./mongoDb/users";
-import { Document, ObjectId } from "mongodb";
+import { Document } from "mongodb";
 
 type Props = {
   user: User;
