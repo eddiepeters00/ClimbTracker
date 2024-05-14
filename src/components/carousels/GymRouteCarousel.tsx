@@ -75,9 +75,10 @@ export default function GymRouteCarousel({
                   href={`/gyms/${gym_id}/${route._id}`}
                 >
                   <CarouselItem
-                    className={`basis-1/3 p-2 text-center grid text-lg font-extrabold mix-blend-difference`}
+                    className={`basis-1/3 p-2 grid text-lg font-extrabold mix-blend-difference whitespace-nowrap`}
                   >
-                    {route.name ?? "Testing name"}
+                    <span className="text-xs text-left">{route.grade}</span>
+                    {route.name}
                   </CarouselItem>
                 </Link>
               ))}
