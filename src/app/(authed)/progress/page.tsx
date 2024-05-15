@@ -2,12 +2,12 @@ import Image from "next/image";
 import person_climbing_outside from "../../../../public/248.jpg";
 import AvatarContainer from "./AvatarContainer";
 import { getUserAchievements } from "@/lib/mongoDb/users";
-import ProgressCard from "@/components/ProgressCard";
 import AchivementsCard from "@/components/AchievementsCard";
 import { getAchievements } from "@/lib/mongoDb/achievements";
 import { Suspense } from "react";
 import { CircleLoader } from "react-spinners";
 import getCurrentUser from "@/app/helpers/getCurrentUser";
+import TotalProgressCard from "@/components/TotalProgressCard";
 
 export type TotalProgress = {
   times_completed: number;
@@ -70,7 +70,7 @@ export default async function Page() {
         <div className="mx-5 mt-5 grid gap-10">
           <div>
             <h2>Total Progress</h2>
-            <ProgressCard
+            <TotalProgressCard
               progress={{
                 total_completed: totalCompletedRoutes,
                 total_tries: totalTries,

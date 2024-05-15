@@ -1,3 +1,4 @@
+"use server";
 import { TotalProgress } from "@/app/(authed)/progress/page";
 import { getAchievements, Achievement } from "./mongoDb/achievements";
 import { getAllRoutes } from "./mongoDb/gyms";
@@ -16,10 +17,6 @@ export default async function updateAchievements({ user }: Props) {
     for (const achievement of achievements.achievements) {
       //Check if the user has completed this achievement
       if (hasCompletedAchievement(routes.routes, achievement, user)) {
-        console.log(
-          "Check for completed achievements: ",
-          hasCompletedAchievement(routes.routes, achievement, user)
-        );
         //Check if the user already has the achievement
         if (
           !user.achievements.some(
@@ -27,20 +24,18 @@ export default async function updateAchievements({ user }: Props) {
               userAchievement.toString() === achievement._id.toString()
           )
         ) {
-          console.log(
-            "USER ACHIEVEMENTS: ",
-            user.achievements,
-            "CURRENT ACHIEVEMENT ID: ",
-            achievement._id
-          );
           await addAchievementToUser({
             userId: user._id?.toString() ?? "",
             achievementId: achievement._id,
           });
         }
+
+        return { unlockedAchievement: true };
       }
     }
   }
+
+  return { unlockedAchievement: false };
 }
 
 //Function to check if the user has completed a specific achievement
@@ -83,6 +78,8 @@ function hasCompletedAchievement(
             tries: 0,
           }
         )?.tries ?? 0;
+
+      console.log("[ACHIEVEMENTS] - TOTAL TRIES: ", totalTries);
       return totalTries >= 100;
 
     case "6641c96dfe9c1c970e949295": //Completed a 7C

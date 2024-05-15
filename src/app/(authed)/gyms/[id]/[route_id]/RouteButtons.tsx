@@ -3,19 +3,34 @@
 import { Button } from "@/components/ui/button";
 import handleRoute from "./handleRoute";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export default function RouteButtons({ route_id }: { route_id: string }) {
   const queryClient = useQueryClient();
 
   const completedMutation = useMutation({
     mutationFn: () => handleRoute({ route_id: route_id, action: "completed" }),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["savedCurrentRoute"] }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["savedCurrentRoute"] });
+
+      if (data && "achievements" in data) {
+        if (data.achievements.unlockedAchievement) {
+          toast.success("Unlocked achievement");
+        }
+      }
+    },
   });
   const tryMutation = useMutation({
     mutationFn: () => handleRoute({ route_id: route_id, action: "try" }),
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["savedCurrentRoute"] }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["savedCurrentRoute"] });
+
+      if (data && "achievements" in data) {
+        if (data.achievements.unlockedAchievement) {
+          toast.success("Unlocked achievement");
+        }
+      }
+    },
   });
 
   return (
