@@ -1,6 +1,5 @@
 import { Collection, ObjectId } from "mongodb";
 import clientPromise from ".";
-import { Achievement } from "./achievements";
 
 let users: Collection<User>;
 

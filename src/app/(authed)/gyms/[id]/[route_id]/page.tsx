@@ -2,26 +2,19 @@ import Image from "next/image";
 import man_bouldering from "../../../../../../public/shirtless-sporty-male-climbing-indoor-climbing-wall.jpg";
 import { getCurrentRoute } from "@/lib/mongoDb/gyms";
 import RouteButtons from "./RouteButtons";
-import { getServerSession } from "next-auth";
-import {
-  getCurrentUserByEmail,
-  getSavedCurrentRoute,
-} from "@/lib/mongoDb/users";
+import { getSavedCurrentRoute } from "@/lib/mongoDb/users";
 import ProgressCard from "../../../../../components/ProgressCard";
 import { Suspense } from "react";
 import { CircleLoader } from "react-spinners";
+import getCurrentUser from "@/app/helpers/getCurrentUser";
 
 export default async function Page({
   params: { id, route_id },
 }: {
   params: { id: string; route_id: string };
 }) {
-  const session = await getServerSession();
-  const user = await getCurrentUserByEmail({
-    email: session?.user?.email ?? "",
-  });
-
-  const userId = user.user?._id.toString();
+  const user = await getCurrentUser();
+  const userId = user?._id.toString();
 
   const savedCurrentRoute = await getSavedCurrentRoute({
     userId: userId ?? "",

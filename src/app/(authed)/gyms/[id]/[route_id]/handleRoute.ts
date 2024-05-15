@@ -1,14 +1,13 @@
 "use server";
 
+import getCurrentUser from "@/app/helpers/getCurrentUser";
 import updateAchievements from "@/lib/achievementLogic";
 import {
   addCompletedRoute,
   addTryToRoute,
   findRouteInUser,
-  getCurrentUserByEmail,
   saveRoute,
 } from "@/lib/mongoDb/users";
-import { getServerSession } from "next-auth";
 
 export default async function handleRoute({
   route_id,
@@ -17,13 +16,9 @@ export default async function handleRoute({
   route_id: string;
   action: "try" | "completed";
 }) {
-  const session = await getServerSession();
-  const user = await getCurrentUserByEmail({
-    email: session?.user?.email ?? "",
-  });
-
-  if (!user.user?._id) return;
-  const userId = user.user._id.toString();
+  const user = await getCurrentUser();
+  if (!user?._id) return;
+  const userId = user._id.toString();
 
   const routeExists = await findRouteInUser({
     userId: userId,
@@ -48,7 +43,7 @@ export default async function handleRoute({
   }
 
   //Update achievements
-  const updatedAchievement = await updateAchievements({ user: user.user });
+  const updatedAchievement = await updateAchievements({ user: user });
   console.log("[HANDLE-ROUTE] - UPDATED ACHIEVEMENT: ", updatedAchievement);
   return completedAction;
 }

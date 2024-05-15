@@ -1,16 +1,13 @@
 import Image from "next/image";
 import person_climbing_outside from "../../../../public/248.jpg";
 import AvatarContainer from "./AvatarContainer";
-import { getServerSession } from "next-auth";
-import {
-  getCurrentUserByEmail,
-  getUserAchievements,
-} from "@/lib/mongoDb/users";
+import { getUserAchievements } from "@/lib/mongoDb/users";
 import ProgressCard from "@/components/ProgressCard";
 import AchivementsCard from "@/components/AchievementsCard";
 import { getAchievements } from "@/lib/mongoDb/achievements";
 import { Suspense } from "react";
 import { CircleLoader } from "react-spinners";
+import getCurrentUser from "@/app/helpers/getCurrentUser";
 
 export type TotalProgress = {
   times_completed: number;
@@ -20,22 +17,19 @@ export type TotalProgress = {
 export type TotalTriesCompleted = Pick<TotalProgress, "times_completed">;
 
 export default async function Page() {
-  const session = await getServerSession();
-  const user = await getCurrentUserByEmail({
-    email: session?.user?.email ?? "",
-  });
+  const user = await getCurrentUser();
 
   const achievements = await getAchievements();
   const userAchievements = await getUserAchievements({
-    userId: user.user?._id.toString() ?? "",
+    userId: user?._id.toString() ?? "",
   });
 
-  const totalCompletedRoutes = user.user?.saved_routes.filter(
+  const totalCompletedRoutes = user?.saved_routes.filter(
     (route) => route.completed
   ).length;
 
   const totalTries =
-    user.user?.saved_routes.reduce(
+    user?.saved_routes.reduce(
       (prev: TotalProgress, curr: TotalProgress) => ({
         times_completed: prev.times_completed,
         tries: prev.tries + curr.tries,
@@ -47,7 +41,7 @@ export default async function Page() {
     )?.tries ?? 0;
 
   const totalTimesCompleted =
-    user.user?.saved_routes.reduce(
+    user?.saved_routes.reduce(
       (prev: TotalTriesCompleted, curr: TotalTriesCompleted) => ({
         times_completed: prev.times_completed + curr.times_completed,
       }),
@@ -70,10 +64,7 @@ export default async function Page() {
         />
 
         <div className="p-5">
-          <AvatarContainer
-            img={user.user?.picture ?? ""}
-            name={user.user?.name ?? ""}
-          />
+          <AvatarContainer img={user?.picture ?? ""} name={user?.name ?? ""} />
         </div>
 
         <div className="mx-5 mt-5 grid gap-10">
