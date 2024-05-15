@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 
 import "./globals.css";
 import AuthProvider from "./context/AuthProvider";
+import QueryProvider from "./context/QueryProvider";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -25,7 +26,9 @@ export default function RootLayout({
       <body
         className={`${poppins.className} relative flex flex-col h-full max-w-[1000px] mx-auto`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <QueryProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

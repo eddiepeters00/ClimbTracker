@@ -1,33 +1,40 @@
-import { Card } from "@/components/ui/card";
+"use client";
 
-export type ProgressProps = {
-  total_completed: number | undefined;
-  total_tries_completed: number | undefined;
-  total_tries: number | undefined;
-};
+import { Card } from "@/components/ui/card";
+import { getSavedCurrentRoute } from "@/lib/mongoDb/users";
+import { savedCurrentRoute } from "@/lib/queries/userQueries";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProgressCard({
-  progress,
+  currentRoute,
+  userId,
+  routeId,
 }: {
-  progress: ProgressProps | undefined;
+  currentRoute: Awaited<ReturnType<typeof getSavedCurrentRoute>>;
+  userId: string;
+  routeId: string;
 }) {
+  const { data } = useQuery({
+    initialData: currentRoute.route,
+    queryKey: ["savedCurrentRoute", { userId: userId, routeId: routeId }],
+    queryFn: () => savedCurrentRoute({ userId: userId, routeId: routeId }),
+  });
+
   let average_tries = 0;
-  if (progress?.total_tries_completed && progress.total_tries) {
-    average_tries =
-      progress.total_tries_completed /
-      (progress.total_tries + progress.total_tries_completed);
+  if (data?.times_completed && data.tries) {
+    average_tries = data.times_completed / (data.tries + data.times_completed);
   }
 
   return (
     <Card className="p-4">
       <div className="flex justify-around items-center gap-4">
         <div className="text-black grid place-content-center text-center">
-          <span>{progress?.total_completed ?? 0}</span>
+          <span>{data?.times_completed ?? 0}</span>
           <span className="text-sm font-light">Completed</span>
         </div>
 
         <div className="text-black grid place-content-center text-center">
-          <span>{progress?.total_tries ?? 0}</span>
+          <span>{data?.tries ?? 0}</span>
           <span className="text-sm font-light">Sends</span>
         </div>
 

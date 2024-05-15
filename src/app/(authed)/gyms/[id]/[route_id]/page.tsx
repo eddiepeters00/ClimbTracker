@@ -42,12 +42,9 @@ export default async function Page({
             </h2>
             <div className="m-5">
               <ProgressCard
-                progress={{
-                  total_completed: savedCurrentRoute.route?.times_completed,
-                  total_tries: savedCurrentRoute.route?.tries,
-                  total_tries_completed:
-                    savedCurrentRoute.route?.times_completed,
-                }}
+                currentRoute={savedCurrentRoute}
+                userId={userId ?? ""}
+                routeId={route_id}
               />
             </div>
           </div>

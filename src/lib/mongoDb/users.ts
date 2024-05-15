@@ -33,21 +33,6 @@ async function init() {
   await init();
 })();
 
-//Get all users
-export async function getUsers() {
-  try {
-    if (!users) await init();
-    const result = await users
-      .find({})
-      .map((user) => ({ ...user, _id: user._id.toString() }))
-      .toArray();
-
-    return { users: result };
-  } catch (error) {
-    return { error: "Failed to fetch users" };
-  }
-}
-
 //Get user by ID
 export async function getCurrentUserByEmail({ email }: { email: string }) {
   try {
