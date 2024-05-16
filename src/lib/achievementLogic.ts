@@ -79,7 +79,6 @@ function hasCompletedAchievement(
           }
         )?.tries ?? 0;
 
-      console.log("[ACHIEVEMENTS] - TOTAL TRIES: ", totalTries);
       return totalTries >= 100;
 
     case "6641c96dfe9c1c970e949295": //Completed a 7C
