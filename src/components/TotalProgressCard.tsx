@@ -28,7 +28,7 @@ export default function TotalProgressCard({
 
         <div className="text-black grid place-content-center text-center">
           <span>{progress?.total_tries ?? 0}</span>
-          <span className="text-sm font-light">Sends</span>
+          <span className="text-sm font-light">Tries</span>
         </div>
 
         <div className="text-black grid place-content-center text-center">

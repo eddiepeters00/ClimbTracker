@@ -7,7 +7,6 @@ import ProgressCard from "../../../../../components/ProgressCard";
 import { Suspense } from "react";
 import { CircleLoader } from "react-spinners";
 import getCurrentUser from "@/app/helpers/getCurrentUser";
-import { ArrowLeft } from "lucide-react";
 import BackButton from "@/components/BackButton";
 
 export default async function Page({

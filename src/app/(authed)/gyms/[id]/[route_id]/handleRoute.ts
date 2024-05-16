@@ -26,8 +26,7 @@ export default async function handleRoute({
   });
 
   //If route dosnt exist in user, save it
-  if (!routeExists.route)
-    return saveRoute({ userId: userId, routeId: route_id });
+  if (!routeExists.route) saveRoute({ userId: userId, routeId: route_id });
 
   let completedAction;
   if (action === "completed") {
