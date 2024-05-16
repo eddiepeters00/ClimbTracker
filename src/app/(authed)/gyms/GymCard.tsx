@@ -2,7 +2,6 @@
 
 import { Card, CardTitle } from "@/components/ui/card";
 import { Gym } from "@/lib/mongoDb/gyms";
-import { SavedRoute } from "@/lib/mongoDb/users";
 import Link from "next/link";
 
 type GymCardProps = {

@@ -7,6 +7,7 @@ import { CircleLoader } from "react-spinners";
 
 export default async function Page() {
   const gyms = await getGyms();
+  console.log(gyms);
   return (
     <Suspense
       fallback={

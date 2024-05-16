@@ -40,8 +40,6 @@ export default async function Page() {
       }
     )?.tries ?? 0;
 
-  console.log(user?.saved_routes);
-
   const totalTimesCompleted =
     user?.saved_routes.reduce(
       (prev: TotalTriesCompleted, curr: TotalTriesCompleted) => ({
