@@ -7,6 +7,8 @@ import ProgressCard from "../../../../../components/ProgressCard";
 import { Suspense } from "react";
 import { CircleLoader } from "react-spinners";
 import getCurrentUser from "@/app/helpers/getCurrentUser";
+import { ArrowLeft } from "lucide-react";
+import BackButton from "@/components/BackButton";
 
 export default async function Page({
   params: { id, route_id },
@@ -37,9 +39,13 @@ export default async function Page({
 
         <div className="pt-10 grid place-content-between justify-center">
           <div>
-            <h2 className="text-center font-semibold text-primary-foreground">
-              {`${currentRoute.route?.name} ${currentRoute.route?.grade}`}
-            </h2>
+            <div className="grid items-center grid-cols-3 m-[0 auto]">
+              <BackButton className="ml-6" />
+              <h2 className="text-center font-semibold text-primary-foreground">
+                {`${currentRoute.route?.name} ${currentRoute.route?.grade}`}
+              </h2>
+            </div>
+
             <div className="m-5">
               <ProgressCard
                 currentRoute={savedCurrentRoute}

@@ -5,6 +5,7 @@ import { getGym } from "@/lib/mongoDb/gyms";
 import { Suspense } from "react";
 import { CircleLoader } from "react-spinners";
 import getCurrentUser from "@/app/helpers/getCurrentUser";
+import BackButton from "@/components/BackButton";
 
 export default async function Page({
   params: { id },
@@ -28,9 +29,12 @@ export default async function Page({
         />
 
         <div className="pt-10 grid gap-10">
-          <h2 className="text-center font-semibold text-primary-foreground">
-            {gym.gym?.name}
-          </h2>
+          <div className="grid items-center grid-cols-3 m-[0 auto]">
+            <BackButton className="ml-6" />
+            <h2 className="text-center font-semibold text-primary-foreground">
+              {gym.gym?.name}
+            </h2>
+          </div>
 
           <div className="overflow-hidden">
             <GymRouteCarousel

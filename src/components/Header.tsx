@@ -13,7 +13,7 @@ import { signOut } from "next-auth/react";
 
 export default function Header() {
   return (
-    <header className="bg-primary-foreground  p-2 grid place-content-center min-w-full text-center relative">
+    <header className="bg-primary-foreground  p-2 grid place-content-center min-w-full w-full text-center relative">
       <h1 className="text-primary font-bold text-xl">Climb Tracker</h1>
       <DropdownMenu>
         <DropdownMenuTrigger className="absolute right-0 top-0 p-2 text-black">
