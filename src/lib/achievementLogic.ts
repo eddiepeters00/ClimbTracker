@@ -28,9 +28,9 @@ export default async function updateAchievements({ user }: Props) {
             userId: user._id?.toString() ?? "",
             achievementId: achievement._id,
           });
-        }
 
-        return { unlockedAchievement: true };
+          return { unlockedAchievement: true };
+        }
       }
     }
   }
