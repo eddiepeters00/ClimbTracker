@@ -42,6 +42,6 @@ export default async function handleRoute({
   }
 
   //Update achievements
-  const achievements = await updateAchievements({ user: user });
+  const achievements = await updateAchievements();
   return { completedAction, achievements };
 }

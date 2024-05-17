@@ -4,16 +4,14 @@ import { getAchievements, Achievement } from "./mongoDb/achievements";
 import { getAllRoutes } from "./mongoDb/gyms";
 import { User, addAchievementToUser } from "./mongoDb/users";
 import { Document } from "mongodb";
+import getCurrentUser from "@/app/helpers/getCurrentUser";
 
-type Props = {
-  user: User;
-};
-
-export default async function updateAchievements({ user }: Props) {
+export default async function updateAchievements() {
   const achievements = await getAchievements();
   const routes = await getAllRoutes();
+  const user = await getCurrentUser();
 
-  if (achievements.achievements && routes.routes) {
+  if (achievements.achievements && routes.routes && user) {
     for (const achievement of achievements.achievements) {
       //Check if the user has completed this achievement
       if (hasCompletedAchievement(routes.routes, achievement, user)) {
